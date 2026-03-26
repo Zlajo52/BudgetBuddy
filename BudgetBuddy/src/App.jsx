@@ -1,59 +1,29 @@
-import { createSignal, onCleanup } from "solid-js";
-import { auth } from "./firebase";
-import { onAuthStateChanged } from "firebase/auth";
+// src/App.jsx
+import { Router, Route } from "@solidjs/router";
 
-import LogIn from "./components/LogIn";
-import SignUp from "./components/SignUp";
-import Dashboard from "./components/Dashboard";
+import Landing from "./pages/Landing";
+import LogIn from "./pages/LogIn";
+import SignUp from "./pages/SignUp";
+import SignOut from "./pages/SignOut";
+import ResetPassword from "./pages/ResetPassword";
+import Dashboard from "./pages/Dashboard";
+import Profile from "./pages/Profile";
 
-function App() {
-
-  const [user, setUser] = createSignal(null);
-  const [page, setPage] = createSignal("login");
-
-  const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-    setUser(currentUser);
-  });
-
-  onCleanup(() => unsubscribe());
-
+export default function App() {
   return (
-    <>
-      {user() ? (
-        <Dashboard />
-      ) : (
-        <div class="min-h-screen flex items-center justify-center bg-base-200">
+    <Router>
+      {/* Javne rute */}
+      <Route path="/login"          component={LogIn} />
+      <Route path="/signup"         component={SignUp} />
+      <Route path="/signout"        component={SignOut} />
+      <Route path="/reset-password" component={ResetPassword} />
 
-          <div class="card w-96 bg-base-100 shadow-xl">
+      {/* Zaštićene rute */}
+      <Route path="/dashboard" component={Dashboard} />
+      <Route path="/profile"   component={Profile} />
 
-            <div class="tabs tabs-boxed justify-center mt-4">
-
-              <button
-                class={`tab ${page() === "LogIn" ? "tab-active" : ""}`}
-                onClick={() => setPage("LogIn")}
-              >
-                Prijavi se
-              </button>
-
-              <button
-                class={`tab ${page() === "SignUp" ? "tab-active" : ""}`}
-                onClick={() => setPage("SignUp")}
-              >
-                Registriraj se
-              </button>
-
-            </div>
-
-            <div class="card-body">
-              {page() === "LogIn" ? <LogIn /> : <SignUp />}
-            </div>
-
-          </div>
-
-        </div>
-      )}
-    </>
+      {/* Landing page */}
+      <Route path="/" component={Landing} />
+    </Router>
   );
 }
-
-export default App;

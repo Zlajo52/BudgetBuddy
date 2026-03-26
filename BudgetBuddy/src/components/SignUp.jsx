@@ -1,8 +1,10 @@
 import { createSignal } from "solid-js";
 import { auth } from "../firebase";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { db } from "../firebase";
+import { doc, setDoc } from "firebase/firestore";
 
-function Register() {
+async function Register() {
   const [name, setName] = createSignal("");
   const [email, setEmail] = createSignal("");
   const [password, setPassword] = createSignal("");
@@ -25,6 +27,17 @@ function Register() {
       alert(error.message);
     }
   };
+
+  const userCredential = await createUserWithEmailAndPassword(auth, email(), password());
+  const user = userCredential.user;
+  await updateProfile(user, { displayName: name() });
+
+  await setDoc(doc(db, "users", user.uid), {
+    name: name(),
+    email: email(),
+    role: "user",
+    createdAt: new Date()
+  });
 
   return (
     <form class="flex flex-col gap-3" onSubmit={register}>
