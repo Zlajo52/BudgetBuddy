@@ -21,7 +21,6 @@ export default function Profile() {
   const [passErr, setPassErr] = createSignal(null);
   const [savingPass, setSavingPass] = createSignal(false);
 
-  // Popuni formu kad se profil učita
   createEffect(() => {
     const p = authStore.profile;
     if (p) {
@@ -89,7 +88,7 @@ export default function Profile() {
   return (
     <ProtectedRoute>
       <div class="min-h-screen bg-base-200">
-        {/* Jednostavan navbar za Fazu 2 */}
+        {/*Navbar*/}
         <div class="navbar bg-base-100 border-b border-base-200 px-4">
           <div class="navbar-start">
             <A href="/dashboard" class="text-xl font-bold">💰 BudgetBuddy</A>
@@ -141,7 +140,7 @@ export default function Profile() {
                     placeholder="Mjesečni budžet (€)"
                     class="input input-bordered w-full"
                     min="0"
-                    step="1"
+                    step="50"
                     value={monthlyBudget()}
                     onInput={(e) => setMonthlyBudget(e.target.value)}
                   />
@@ -167,7 +166,7 @@ export default function Profile() {
                     placeholder="Iznos cilja (€)"
                     class="input input-bordered w-full"
                     min="0"
-                    step="1"
+                    step="50"
                     value={savingsGoalAmount()}
                     onInput={(e) => setSavingsGoalAmount(e.target.value)}
                   />

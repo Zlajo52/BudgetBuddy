@@ -19,7 +19,6 @@ export default function LogIn() {
       await authService.login(email(), password());
       navigate("/dashboard");
     } catch (err) {
-      // Firebase v10+ koristi auth/invalid-credential umjesto starih kodova
       if (
         err.code === "auth/invalid-credential" ||
         err.code === "auth/user-not-found" ||

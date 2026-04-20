@@ -71,7 +71,7 @@ export default function Landing() {
             {
               icon: "⚠️",
               title: "Budžet upozorenje",
-              desc: "Odmah ćeš znati ako prekorачiš postavljeni mjesečni limit.",
+              desc: "Odmah ćeš znati ako prekoraćiš postavljeni mjesečni limit.",
             },
           ].map((f) => (
             <div class="bg-white/5 border border-white/10 rounded-2xl p-5 text-left hover:bg-white/8 transition-colors">
