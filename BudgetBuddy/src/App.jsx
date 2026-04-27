@@ -7,23 +7,24 @@ import SignUp from "./pages/SignUp";
 import SignOut from "./pages/SignOut";
 import ResetPassword from "./pages/ResetPassword";
 import Dashboard from "./pages/Dashboard";
+import Transactions from "./pages/Transactions";
 import Profile from "./pages/Profile";
+import Admin from "./pages/Admin";
+import Stats from "./pages/Stats";
 
 export default function App() {
   return (
     <Router>
-      {/* Javne rute */}
+      <Route path="/"               component={Landing} />
       <Route path="/login"          component={LogIn} />
       <Route path="/signup"         component={SignUp} />
       <Route path="/signout"        component={SignOut} />
       <Route path="/reset-password" component={ResetPassword} />
-
-      {/* Zaštićene rute */}
-      <Route path="/dashboard" component={Dashboard} />
-      <Route path="/profile"   component={Profile} />
-
-      {/* Landing page */}
-      <Route path="/" component={Landing} />
+      <Route path="/dashboard"      component={Dashboard} />
+      <Route path="/transactions"   component={Transactions} />
+      <Route path="/profile"        component={Profile} />
+      <Route path="/admin"          component={Admin} />
+      <Route path="/stats"          component={Stats} />
     </Router>
   );
 }
